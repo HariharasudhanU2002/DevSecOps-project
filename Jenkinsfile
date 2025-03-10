@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout git') {
             steps {
-               git branch: 'main', url: 'https://github.com/HariharasudhanU2002/DevSecOps.git'
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'hari', url: '']])
             }
         }
     }    
