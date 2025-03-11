@@ -19,11 +19,10 @@ pipeline {
                 jdk 'java-17'
             }
             environment {
-                scannerHome = tool 'SonarQubeScanner'
+                scannerHome = tool 'Params.SAST-TOOL'
                 projectName = 'params.SAST_PROJECT_NAME'
             }
-            steps {
-                sh "echo 'welcome sonar'" 
+            steps { 
                 withSonarQubeEnv('sonar_1') {
                     sh """
                         export JAVA_HOME=\$JAVA_HOME
