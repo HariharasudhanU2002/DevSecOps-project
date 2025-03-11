@@ -15,14 +15,27 @@ pipeline {
             }
         } 
         stage('SAST-Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'SonarQubeScanner'
-                    withSonarQubeEnv('sonar_1') { 
-                    sh "${scannerHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
-                    }    
-                }        
+            tools {
+                jdk 'java-17'
             }
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+                projectName = 'params.SAST_PROJECT_NAME'
+            }
+            steps {
+                sh "echo 'welcome sonar'" 
+                withSonarQubeEnv('sonar_1') {
+                    sh """
+                        export JAVA_HOME=\$JAVA_HOME
+                        export PATH=\$JAVA_HOME/bin:\$PATH
+                        ${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=${projectName} \
+                        -Dsonar.sources=src \
+                        -Dsonar.java.binaries=.
+                    """
+                }
+            }
+            
         }
     }
 }
