@@ -48,6 +48,24 @@ pipeline {
                 archiveArtifacts artifacts: 'target/demo-0.0.1-SNAPSHOT.jar', onlyIfSuccessful: true , allowEmptyArchive: true
             }
         }
+        stage('Artifact-Details') {
+            steps {
+                script {
+                    def currentpath=pwd()
+                    def path=currentpath.split("/")
+                    def folderName = path[-3]
+                    def buildData = [
+                        buildNumber: env.BUILD_NUMBER,
+                        jobName: env.JOB_NAME,
+                        jobUrl: env.BUILD_URL,
+                        gitCommit: sh(script: 'git rev-parse HEAD', returnStdout: true).trim(),
+                        repository: sh(script: 'basename `git config --get remote.origin.url` .git', returnStdout: true).trim(),
+                        "jenkins_folderName": "${folderName}" 
+                    ]
+                    writeFile file: "Artifact-details.json", text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(buildData))
+                }
+            }
+        }
     }
 }
       
