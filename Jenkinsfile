@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'SonarQubeScanner'
-                    withSonarQubeEnv('SonarQube') { 
+                    withSonarQubeEnv('sonar_1') { 
                     sh "${scannerHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
                     }    
                 }        
