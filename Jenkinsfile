@@ -17,7 +17,7 @@ pipeline {
         stage('SAST-Analysis') {
             steps {
                 script {
-                    def mvn = tool name: 'Default Maven'  
+                    def mvn = tool name: 'Maven 3.9.9'  
                     withSonarQubeEnv('SonarQube') { 
                     sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
                     }    
