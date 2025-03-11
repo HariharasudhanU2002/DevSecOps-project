@@ -15,9 +15,11 @@ pipeline {
             }
         } 
         stage('SAST-Analysis') {
-            def mvn = tool 'Default Maven';
-            withSonarQubeEnv() {
-                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
+            steps {
+                def mvn = tool 'Default Maven';
+                withSonarQubeEnv() {
+                    sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
+                }    
             }
         }    
             
