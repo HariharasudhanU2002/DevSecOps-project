@@ -17,9 +17,9 @@ pipeline {
         stage('SAST-Analysis') {
             steps {
                 script {
-                    def mvn = tool name: 'Maven'  
+                    def scannerHome = tool 'SonarQubeScanner'
                     withSonarQubeEnv('SonarQube') { 
-                    sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
+                    sh "${scannerHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
                     }    
                 }        
             }
