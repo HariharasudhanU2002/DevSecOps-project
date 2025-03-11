@@ -19,7 +19,7 @@ pipeline {
                 jdk 'java-17'
             }
             environment {
-                scannerHome = tool 'Params.SAST-TOOL'
+                scannerHome = tool 'SonarQubeScanner'
                 projectName = 'params.SAST_PROJECT_NAME'
             }
             steps { 
