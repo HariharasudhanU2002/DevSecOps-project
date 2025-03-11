@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout git') {
             steps {
-               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'hari', url: 'https://github.com/HariharasudhanU2002/DevSecOps.git']])
+               checkout scmGit(branches: [[name: params.REPO_BRANCH]], extensions: [], userRemoteConfigs: [[credentialsId: 'hari', url: params.REPO_URL]])
             }
         }
         stage('Build') {
