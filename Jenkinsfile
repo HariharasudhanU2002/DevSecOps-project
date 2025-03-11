@@ -11,7 +11,7 @@ pipeline {
                 jdk 'java-17'
             }
             steps {
-                sh './maven clean install'
+                sh 'mvn clean package'
             }
         }        
     }    
