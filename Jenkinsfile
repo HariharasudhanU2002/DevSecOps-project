@@ -68,7 +68,7 @@ pipeline {
         }
         stage('Read-Build-Json'){
             steps{
-                archiveArtifacts artifacts: 'target/Artifact-details.json', onlyIfSuccessful: true , allowEmptyArchive: true
+                archiveArtifacts artifacts: 'Artifact-details.json', onlyIfSuccessful: true , allowEmptyArchive: true
             }
         }
     }
