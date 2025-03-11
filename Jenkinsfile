@@ -13,7 +13,9 @@ pipeline {
             steps {
                 sh 'mvn clean package'
             }
-        }        
+        } 
+        stage('SAST-Analysis'){
+            
     }    
 }    
 
