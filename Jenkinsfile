@@ -14,24 +14,14 @@ pipeline {
                 sh 'mvn clean package'
             }
         } 
-        //stage('SAST-Analysis') {
-            //steps {
-                //script {
-                    //def scannerHome = tool 'SonarQubeScanner'
-                    //withSonarQubeEnv('sonar_1') { 
-                    //sh "${scannerHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
-                    //}    
-                //}        
-            //}
-        //}
         stage('SAST-Analysis') {
             steps {
                 script {
-                    def mvnHome = tool name: 'Maven' 
-                    withSonarQubeEnv('SonarQube') { 
-                        sh "${mvnHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
-                    }
-                }    
+                    def scannerHome = tool 'SonarQubeScanner'
+                    withSonarQubeEnv('sonar_1') { 
+                    sh "${scannerHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=DevSecOps-project"
+                    }    
+                }        
             }
         }
     }
