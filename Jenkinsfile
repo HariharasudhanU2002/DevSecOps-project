@@ -34,6 +34,14 @@ pipeline {
                     """
                 }
             }
+            stage('pulish') {
+                tools {
+                    jdk 'java-17'
+                }
+                steps {
+                    nexusArtifactUploader artifacts: [[artifactId: 'DevSecOps-project', classifier: '', file: '/var/lib/jenkins/workspace/Intenship/Hari/DevSecOps-project/target/demo-0.0.1-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus31', groupId: 'com.logicfocus', nexusUrl: '192.168.1.163:32007', nexusVersion: 'nexus3', protocol: 'http', repository: 'DevSecOps-project', version: '1.0.1'
+                }
+            }
             
         }
     }
