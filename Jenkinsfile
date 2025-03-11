@@ -20,7 +20,7 @@ pipeline {
             }
             environment {
                 scannerHome = tool 'SonarQubeScanner'
-                projectName = 'params.SAST_PROJECT_NAME'
+                projectName = 'DevSecOps-project'
             }
             steps { 
                 withSonarQubeEnv('sonar_1') {
