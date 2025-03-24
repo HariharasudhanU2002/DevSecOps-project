@@ -71,6 +71,11 @@ pipeline {
                 archiveArtifacts artifacts: 'Artifact-details.json', onlyIfSuccessful: true , allowEmptyArchive: true
             }
         }
+        stage('CDRO-Trigger'){
+            steps{
+                cloudBeesFlowRunPipeline addParam: '{"pipeline":{"pipelineName":"DevSecOps-project","parameters":[{"parameterName":"artifactfile","parameterValue":""},{"parameterName":"Repo Name","parameterValue":""}]}}', configuration: '/project/Default/pluginConfiguration/jenkins', pipelineName: 'DevSecOps-project', projectName: 'Naveen', stageOption: 'runAllStages', stagesToRun: '{"pipeline":{"pipelineName":"DevSecOps-project","stages":[{"stageName":"Stage 1","stageValue":""},{"stageName":"application-process","stageValue":""},{"stageName":"stage 3","stageValue":""}]}}', startingStage: ''
+            }    
+        }        
     }
 }
       
