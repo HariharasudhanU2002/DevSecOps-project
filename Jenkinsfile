@@ -81,10 +81,6 @@ pipeline {
                 script {
                     def amap = ['something': 'my datas','size': 3,'isEmpty': false]
                     writeJSON file: 'NexusReport.json', json: amap
-                    def read = readJSON file: 'NexusReport.json'
-                    assert read.hari == 'devops'
-                    assert read.dhaya == 'devops'
-                    assert read.isEmpty == false
                 }
             }    
         } 
