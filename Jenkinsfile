@@ -78,9 +78,11 @@ pipeline {
         }
         stage('Nexus Report'){
             steps{
-                def amap = ['something': 'my datas','size': 3,'isEmpty': false]
-                writeJSON file: 'data.json', json: amap
-            }
+                script {
+                    def amap = ['something': 'my datas','size': 3,'isEmpty': false]
+                    writeJSON file: 'data.json', json: amap
+                }
+            }    
         }    
     }
 }
