@@ -80,10 +80,15 @@ pipeline {
             steps{
                 script {
                     def amap = ['something': 'my datas','size': 3,'isEmpty': false]
-                    writeJSON file: 'data.json', json: amap
+                    writeJSON file: 'NexusReport.json', json: amap
                 }
             }    
-        }    
+        } 
+        stage('Artifact Nexus Report'){
+            steps{
+                archiveArtifacts artifacts: 'NexusReport.json', onlyIfSuccessful: true , allowEmptyArchive: true
+            }
+        }
     }
 }
       
