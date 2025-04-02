@@ -79,8 +79,7 @@ pipeline {
         stage('Nexus Report'){
             steps{
                 script {
-                    def amap = ['something': 'my datas','size': 3,'isEmpty': false]
-                    writeJSON file: 'NexusReport.json', json: amap
+                    "curl -u sqa_b81e1ec9977a4cdf8db4cb27cfc7f850d003942b: \"http://192.168.1.163:32003/dashboard?id=DevSecOps-project/api/issues/search?componentKeys=DevSecOps-project-feature&resolved=false\" | jq-win64 -f c:/jq/sonar-report-builder.jq > C:/JW/DevSecOps-project/NexusReport.json"
                 }
             }    
         } 
