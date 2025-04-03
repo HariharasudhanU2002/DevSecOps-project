@@ -88,6 +88,28 @@ pipeline {
                 archiveArtifacts artifacts: 'NexusReport.json', onlyIfSuccessful: true , allowEmptyArchive: true
             }
         }
+        stage('Commit Details'){
+            steps{
+                script {
+                    def currentpath=pwd()
+                    def path=currentpath.split("/")
+                    def folderName = path[-3]
+                    def commitDetails = [
+                        "Repository URL": sh(script: 'git config --get remote.origin.url', returnStdout: true).trim(),
+                        "Repository Name": sh(script: 'basename `git config --get remote.origin.url` .git', returnStdout: true).trim(),
+                        "Commit ID": sh(script: 'git rev-parse HEAD', returnStdout: true).trim(),
+                        "Last Commit Date": sh(script: 'git log -1 --format=%cd --date=iso', returnStdout: true).trim(),
+                        "jenkins_folderName": "${folderName}" 
+                    ]
+                    writeFile file: "commit-details.json", text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(commitDetails))
+                }    
+            } 
+        } 
+        stage('commit Details-Json'){
+            steps{
+                archiveArtifacts artifacts: 'commit-details.json', onlyIfSuccessful: true , allowEmptyArchive: true
+            }
+        }
     }
 }
       
