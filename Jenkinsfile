@@ -54,6 +54,9 @@ pipeline {
                     def currentpath=pwd()
                     def path=currentpath.split("/")
                     def folderName = path[-3]
+                    def nexusChecksumUrl = "http://192.168.1.163:8081/service/rest/v1/components?repository=DevSecOps-project&group=com.logicfocus&name=DevSecOps-project&version=1.0.1"
+                    def artifactInfo = sh(script: "curl -s -u admin:lf@2024 ${nexusChecksumUrl}", returnStdout: true).trim()
+                    def checksumValue = readJSON(text: artifactInfo).items[0].assets[0].checksum.sha1
                     def buildData = [
                         buildNumber: env.BUILD_NUMBER,
                         jobName: env.JOB_NAME,
@@ -61,6 +64,8 @@ pipeline {
                         gitCommit: sh(script: 'git rev-parse HEAD', returnStdout: true).trim(),
                         repository: sh(script: 'basename `git config --get remote.origin.url` .git', returnStdout: true).trim(),
                         "jenkins_folderName": "${folderName}",
+                        "checksum": "${checksumValue}"
+
                     ]
                     writeFile file: "Artifact-details.json", text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(buildData))
                 }
