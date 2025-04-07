@@ -62,7 +62,7 @@ pipeline {
                         gitCommit: sh(script: 'git rev-parse HEAD', returnStdout: true).trim(),
                         repository: sh(script: 'basename `git config --get remote.origin.url` .git', returnStdout: true).trim(),
                         "jenkins_folderName": "${folderName}",
-                        "checksum": sh(script: "sha1sum ${checkSumTxt} | awk '{ print \$1 }'",returnStdout: true).trim()
+                        "checksum": sh(script: "curl -s http://192.168.1.163:8081/repository/DevSecOps-project/com/logicfocus/DevSecOps-project/1.0.1/DevSecOps-project-1.0.1.jar.sha1",returnStdout: true).trim()
                     ]
                     writeFile file: "Artifact-details.json", text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(buildData))
                 }
