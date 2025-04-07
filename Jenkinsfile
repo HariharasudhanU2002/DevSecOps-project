@@ -61,7 +61,7 @@ pipeline {
                         jobUrl: env.BUILD_URL,
                         gitCommit: sh(script: 'git rev-parse HEAD', returnStdout: true).trim(),
                         repository: sh(script: 'basename `git config --get remote.origin.url` .git', returnStdout: true).trim(),
-                        "jenkins_folderName": "${folderName}" 
+                        "jenkins_folderName": "${folderName}",
                         "checksum": "${checkSumTxt}"
                     ]
                     writeFile file: "Artifact-details.json", text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(buildData))
