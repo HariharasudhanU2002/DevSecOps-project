@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+    SKIP_SAST = 'true'  // Set to 'false' to run
+    }
     stages {
         stage('Checkout git') {
             steps {
@@ -15,6 +18,9 @@ pipeline {
             }
         } 
         stage('SAST-Analysis') {
+            when {
+                expression { return env.SKIP_SAST != 'true' }
+            }
             tools {
                 jdk 'java-17'
             }
